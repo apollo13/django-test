@@ -1,0 +1,12 @@
+name: Schedule
+
+on:
+  schedule:
+    - cron:  "42 5 * * *"
+  workflow_dispatch:
+
+jobs:
+  run-main:
+    uses: ./.github/workflows/tests.yml@main
+  run-stable-40x:
+    uses: ./.github/workflows/tests.yml@stable/4.0.x

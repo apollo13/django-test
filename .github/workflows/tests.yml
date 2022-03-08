@@ -9,6 +9,8 @@ on:
       - main
     paths-ignore:
       - 'docs/**'
+  workflow_call:
+
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -23,6 +25,8 @@ jobs:
           - '3.10'
     name: Windows, SQLite, Python ${{ matrix.python-version }}
     steps:
+      - name: Output github github.ref
+        run: echo ${{ github.ref }}
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set up Python
