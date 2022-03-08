@@ -6,11 +6,25 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-main:
-    uses: apollo13/django-test/.github/workflows/tests.yml@main
-    with:
-      ref: refs/heads/main
-  run-stable-40x:
-    uses: apollo13/django-test/.github/workflows/tests.yml@stable/4.0.x
-    with:
-      ref: refs/heads/stable/4.0.x
+  trigger-runs:
+    runs-on: ubuntu-latest
+    environment: schedules
+    name: Trigger Full Build
+    # Only trigger on the main Django repository
+    # if: (github.event_name == 'schedule' && github.repository == 'django/django') || (github.event_name != 'schedule')
+    strategy:
+      matrix:
+        branch:
+          - main
+          - stable/4.0.x
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.NIGHTLY_WORKFLOW_TOKEN}}
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: ".github/workflows/tests.yml",
+              ref: "${{ matrix.branch }}",
+            })
