@@ -2,10 +2,15 @@ name: Schedule
 
 on:
   schedule:
-    - cron:  "42 5 * * *"
+    - cron: "42 5 * * *"
   workflow_dispatch:
 
 jobs:
+  XXX:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output github github.ref
+        run: echo ${{ github.ref }}
   run-main:
     uses: ./.github/workflows/tests.yml@main
   run-stable-40x:
