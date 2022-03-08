@@ -6,12 +6,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  #  XXX:
-  #    runs-on: ubuntu-latest
-  #    steps:
-  #      - name: Output github github.ref
-  #        run: echo ${{ github.ref }}
   run-main:
     uses: apollo13/django-test/.github/workflows/tests.yml@main
+    with:
+      ref: refs/heads/main
   run-stable-40x:
     uses: apollo13/django-test/.github/workflows/tests.yml@stable/4.0.x
+    with:
+      ref: refs/heads/stable/4.0.x
