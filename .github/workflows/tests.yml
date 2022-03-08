@@ -1,7 +1,6 @@
 name: Tests
 
 on:
-  push:
   workflow_dispatch:
 
 concurrency:
@@ -17,4 +16,4 @@ jobs:
           - "3.10"
     name: Python ${{ matrix.python-version }}
     steps:
-      - echo ${{ github.ref }}
+      - echo "${{ github.ref }}"
