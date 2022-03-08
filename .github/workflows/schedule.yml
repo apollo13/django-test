@@ -24,7 +24,7 @@ jobs:
           github-token: ${{secrets.NIGHTLY_WORKFLOW_TOKEN}}
           script: |
             const yesterday = new Date(new Date() - (1000 * 3600 * 24)).toISOString();
-            const commits = await github.rest.repos.listCommits({
+            const { data: commits } = await github.rest.repos.listCommits({
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: "${{ matrix.branch }}",
